@@ -58,7 +58,7 @@ class _EditViewBodyState extends State<EditViewBody> {
               subtitle = data;
             },
           ),
-          EditColorList()
+          EditColorList(note: widget.notas)
         ],
       ),
     );
