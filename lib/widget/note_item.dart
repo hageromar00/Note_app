@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:note_app/cubits/note_cubit/note_cubits.dart';
+import 'package:note_app/model/note_model.dart';
 import 'package:note_app/views/edit_view.dart';
 
 class NoteItem extends StatelessWidget {
-  const NoteItem({super.key});
+  const NoteItem({super.key, required this.not});
+  final NoteModel not;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return EditView();
+          return EditView(note: not,);
         }));
       },
       child: Container(
@@ -21,19 +25,22 @@ class NoteItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             ListTile(
-              title: const Text(
-                'flutter',
-                style: TextStyle(color: Colors.black, fontSize: 22),
+              title: Text(
+                not.title,
+                style: const TextStyle(color: Colors.black, fontSize: 22),
               ),
               subtitle: Padding(
                 padding: const EdgeInsets.only(top: 16, bottom: 10),
                 child: Text(
-                  'build flutter in learn with hager omar ',
+                  not.subtitle,
                   style: TextStyle(color: Colors.black.withOpacity(.4)),
                 ),
               ),
               trailing: IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    not.delete();
+                    BlocProvider.of<NoteViewCubit>(context).fetchNote();
+                  },
                   icon: const Icon(
                     FontAwesomeIcons.trash,
                     color: Colors.black,
@@ -42,7 +49,7 @@ class NoteItem extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.only(right: 16),
-              child: Text('5 may 2024',
+              child: Text(not.date,
                   style: TextStyle(color: Colors.black.withOpacity(.6))),
             ),
           ],
