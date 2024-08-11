@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:note_app/const.dart';
 
 class AddNoteSheetIcon extends StatelessWidget {
-  const AddNoteSheetIcon({super.key, required this.onTap,this.isLoad=false});
+  const AddNoteSheetIcon({super.key, required this.onTap, this.isLoad = false});
   final void Function()? onTap;
   final bool isLoad;
 
@@ -17,11 +17,20 @@ class AddNoteSheetIcon extends StatelessWidget {
           color: Kcolor,
           borderRadius: BorderRadius.circular(10),
         ),
-        child: const Center(
-            child: Text(
-          'ADD',
-          style: TextStyle(fontSize: 20, color: Colors.black),
-        )),
+        child: isLoad
+            ? const SizedBox(
+                width: 25,
+                height: 25,
+                child: Center(
+                    child: CircularProgressIndicator(
+                  color: Colors.black,
+                )),
+              )
+            : const Center(
+                child: Text(
+                'ADD',
+                style: TextStyle(fontSize: 20, color: Colors.black),
+              )),
       ),
     );
   }
