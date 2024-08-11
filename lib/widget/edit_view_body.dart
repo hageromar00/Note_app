@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app/cubits/note_cubit/note_cubits.dart';
 import 'package:note_app/model/note_model.dart';
+import 'package:note_app/widget/add_color.dart';
 import 'package:note_app/widget/custom_appBar.dart';
 import 'package:note_app/widget/custom_text_field.dart';
 import 'package:note_app/widget/note_view_body.dart';
@@ -56,7 +57,8 @@ class _EditViewBodyState extends State<EditViewBody> {
             onChanged: (data) {
               subtitle = data;
             },
-          )
+          ),
+          EditColorList()
         ],
       ),
     );

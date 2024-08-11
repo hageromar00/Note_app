@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:note_app/cubits/add_note/add_note_cubit.dart';
 import 'package:note_app/cubits/add_note/add_note_state.dart';
 import 'package:note_app/model/note_model.dart';
+import 'package:note_app/widget/add_color.dart';
 import 'package:note_app/widget/add_note_sheet_icon.dart';
 import 'package:note_app/widget/custom_text_field.dart';
 
@@ -48,24 +49,12 @@ class _AddNoteSheetState extends State<AddNoteSheet> {
             const SizedBox(
               height: 20,
             ),
+           ColorList(),
             BlocBuilder<AddNoteCubit, AddNoteState>(
               builder: (context, state) {
                 return AddNoteSheetIcon(
                   onTap: () {
-                    if (formkey.currentState!.validate()) {
-                      formkey.currentState!.save();
-                      var data = DateTime.now();
-                      var formatDate = DateFormat.yMd().format(data);
-                      var notemodell = NoteModel(
-                          title: Title!,
-                          subtitle: Content!,
-                          date: formatDate,
-                          color: Colors.amber.value);
-                      BlocProvider.of<AddNoteCubit>(context)
-                          .AddNote(notemodell);
-                    } else {
-                      auto = AutovalidateMode.always;
-                    }
+                    currValidate(context);
                   },
                 );
               },
@@ -78,4 +67,23 @@ class _AddNoteSheetState extends State<AddNoteSheet> {
       ),
     );
   }
+
+  void currValidate(BuildContext context) {
+    if (formkey.currentState!.validate()) {
+      formkey.currentState!.save();
+      var data = DateTime.now();
+      var formatDate = DateFormat.yMd().format(data);
+      var notemodell = NoteModel(
+          title: Title!,
+          subtitle: Content!,
+          date: formatDate,
+          color: Colors.blue.value
+          );
+      BlocProvider.of<AddNoteCubit>(context).AddNote(notemodell);
+    } else {
+      auto = AutovalidateMode.always;
+    }
+  }
 }
+
+
